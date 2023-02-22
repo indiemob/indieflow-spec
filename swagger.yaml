@@ -10,6 +10,8 @@ info:
 servers:
 - url: http://api.indieflow.app/v1
   description: Production server
+- url: http://api.dev.indieflow.app/v1
+  description: Development server
 security:
 - api_key: []
 paths:
@@ -298,7 +300,9 @@ paths:
     post:
       summary: Flushes (re-attempts) to run the given step from the dead letter
       description: |
-        Re-attempts to run the given step from the dead letter
+        Re-attempts to run the given step from the dead letter.
+
+        NOTE: This will count as a submission request
       operationId: dead_letter_id_post
       parameters:
       - name: id
