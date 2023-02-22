@@ -8,6 +8,8 @@ info:
     allowing you to design behind-the-scenes processes both in parallel and in pipeline.
 
     <img src="./diagram.gif" width="800" />
+
+    
   version: 0.0.1
 servers:
 - url: https://api.indieflow.app/v1
