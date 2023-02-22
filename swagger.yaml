@@ -8,9 +8,9 @@ info:
     allowing you to design behind-the-scenes processes both in parallel and in pipeline.
   version: 0.0.1
 servers:
-- url: http://api.indieflow.app/v1
+- url: https://api.indieflow.app/v1
   description: Production server
-- url: http://api.dev.indieflow.app/v1
+- url: https://api.dev.indieflow.app/v1
   description: Development server
 security:
 - api_key: []
