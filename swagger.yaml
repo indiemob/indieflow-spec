@@ -427,6 +427,8 @@ components:
         * generic_error: The request contains a generic error
         * service_down: The backend server is down
         * flow_disabled: The requested flow is currently marked as disabled
+        * service_plan_max_registered_flows_reached: The maximum number of registered flows has been reached
+        * service_plan_max_steps_per_flow_reached: The maximum number of steps per flow has been exceeded
       enum:
       - success
       - validation_error
@@ -436,6 +438,8 @@ components:
       - resource_not_found
       - step_already_executed
       - flow_disabled
+      - service_plan_max_registered_flows_reached
+      - service_plan_max_steps_per_flow_reached
     StepExecutionExitCode:
       type: string
       description: |
