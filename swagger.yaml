@@ -7,7 +7,7 @@ info:
     Create automated workflows that will react to the output of your API responses through webhooks,
     allowing you to design behind-the-scenes processes both in parallel and in pipeline.
 
-    <img src="./diagram.gif" width="800" />
+    <img src="https://raw.githubusercontent.com/indiemob/indieflow-spec/master/diagram.gif" width="800" />
 
     Example (this is on YAML format for readability purposes)
 
@@ -692,7 +692,10 @@ components:
         data:
           type: object
           additionalProperties: true
-          description: Any additional data we want to send (size is limited to 1kb)
+          description: |
+            Any additional data we want to send (size is limited to 1kb)
+
+            *NOTE: Avoid passing any sensitive data since its contents get stored*
       description: The information about the flow that will get submitted
       required:
       - flow_name
