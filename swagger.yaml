@@ -695,7 +695,7 @@ components:
           description: |
             Any additional data we want to send (size is limited to 1kb)
 
-            *NOTE: Avoid passing any sensitive data since its contents get stored*
+            **WARNING: Avoid passing any sensitive data since its contents get stored**
       description: The information about the flow that will get submitted
       required:
       - flow_name
