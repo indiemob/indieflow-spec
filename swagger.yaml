@@ -162,6 +162,13 @@ paths:
         explode: false
         schema:
           type: string
+      requestBody:
+        description: Information about the flow to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlowDefinition'
+        required: true
       responses:
         "200":
           description: The flow detail
