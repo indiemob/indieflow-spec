@@ -52,22 +52,8 @@ paths:
       summary: Retrieves the flow list
       operationId: flow_definition_get
       parameters:
-      - name: limit
-        in: query
-        description: Page size
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: integer
-      - name: offset
-        in: query
-        description: Page starting record
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: integer
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
       responses:
         "200":
           description: Returns the list of flows
@@ -278,22 +264,8 @@ paths:
       summary: Retrieves the steps that failed to execute
       operationId: dead_letter_get
       parameters:
-      - name: limit
-        in: query
-        description: Page size
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: integer
-      - name: offset
-        in: query
-        description: Page starting record
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: integer
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
       responses:
         "200":
           description: Returns the list of failed steps
@@ -399,6 +371,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        "500":
+          description: A generic error has occurred (status will be `generic_error`)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-openapi-router-controller: "{{ controller_source }}"
+  /flow/execution/{id}/{flow_id}:
+    get:
+      summary: Retrieves the steps executed with this flow
+      operationId: flow_execution_id_flow_id_get
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - name: id
+        in: path
+        description: The flow definition id or name
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: flow_id
+        in: path
+        description: The flow execution identifier
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: List of flow executions returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowExecutionsResponse'
         "500":
           description: A generic error has occurred (status will be `generic_error`)
           content:
@@ -835,6 +844,39 @@ components:
           data:
             $ref: '#/components/schemas/DeadLetterRecord'
         description: The record set of registered flows
+    StepExecutionRecord:
+      description: Contains information about a flow step that already has been executed
+      type: object
+      properties:
+        step_name:
+          description: The exectued step name
+          type: string
+        exit_code:
+          $ref: '#/components/schemas/StepExecutionExitCode'
+        input:
+          type: object
+          additionalProperties: true
+          description: The additional data passed as an input to execute this step
+        output:
+          $ref: '#/components/schemas/AnyData'
+        created_at:
+          description: Date when this step was executed
+          type: integer
+    FlowExecutionsResponse:
+      allOf:
+      - $ref: '#/components/schemas/SimpleResponse'
+      - type: object
+        description: The record set of executions made in this flow
+        properties:
+          data:
+            allOf:
+            - $ref: "#/components/schemas/PaginatedData"
+            - type: object
+              properties:
+                records:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/StepExecutionRecord"
   parameters:
     limit:
       name: limit
@@ -845,6 +887,9 @@ components:
       explode: true
       schema:
         type: integer
+        minimum: 1
+        maximum: 100
+        default: 50
     offset:
       name: offset
       in: query
@@ -854,6 +899,9 @@ components:
       explode: true
       schema:
         type: integer
+        minimum: 0
+        maximum: 100
+        default: 0
   securitySchemes:
     api_key:
       type: apiKey
