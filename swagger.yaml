@@ -58,7 +58,7 @@ info:
       }
     }
     ```
-    * ** Server implementation examples <a href="https://github.com/indiemob/indieflow-examples">here</a>**
+    * **Server implementation examples <a href="https://github.com/indiemob/indieflow-examples">here</a>**
 
   version: 0.0.1
 servers:
