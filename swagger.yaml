@@ -9,35 +9,57 @@ info:
 
     <img src="https://raw.githubusercontent.com/indiemob/indieflow-spec/master/diagram.gif" width="800" />
 
-    Example (this is on YAML format for readability purposes)
 
+    ## Quickstart
+
+    * **Flow definition example (copy and paste this json body to create this example flow definition) <a href="#/default/flow_definition_post">Here</a>**
+
+    ```json
+    {
+      "name": "foo_request_signature",
+      "webhook": {
+        "url": "https://mysite.com/hook" // change this to your url
+      },
+      "steps": {
+        "foo_request_submitted": {
+          "triggers": {
+            "success": [
+              "email_notify_parties"
+            ]
+          }
+        },
+        "email_notify_parties": null,
+        "party_a_signs": {
+          "depends_on": {
+            "email_notify_parties": "success"
+          },
+          "triggers": {
+            "success": [
+              "send_signed_email_confirmation"
+            ]
+          }
+        },
+        "party_b_signs": {
+          "depends_on": {
+            "email_notify_parties": "success"
+          },
+          "triggers": {
+            "success": [
+              "send_signed_email_confirmation"
+            ]
+          }
+        },
+        "send_signed_email_confirmation": {
+          "depends_on": {
+            "party_a_signs": "success",
+            "party_b_signs": "success"
+          }
+        }
+      }
+    }
     ```
-    name: foo_request_signature
-    webhook:
-      url: https://mysite.com/hook
-    steps:
-      foo_request_submitted:
-        triggers:
-          success:
-          - email_notify_parties
-      email_notify_parties:
-      party_a_signs:
-        depends_on:
-          email_notify_parties: success
-        triggers:
-          success:
-          - send_signed_email_confirmation
-      party_b_signs:
-        depends_on:
-          email_notify_parties: success
-        triggers:
-          success:
-          - send_signed_email_confirmation
-      send_signed_email_confirmation: # This step won't execute until all dependencies are met
-        depends_on:
-          party_a_signs: success
-          party_b_signs: success
-    ```
+    * ** Server implementation examples <a href="https://github.com/indiemob/indieflow-examples">here</a>**
+
   version: 0.0.1
 servers:
 - url: https://api.indieflow.app/v1
