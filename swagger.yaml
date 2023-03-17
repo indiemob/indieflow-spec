@@ -64,8 +64,8 @@ info:
 servers:
 - url: https://api.indieflow.app/v1
   description: Production server
-- url: https://api.dev.indieflow.app/v1
-  description: Development server
+# - url: https://api.dev.indieflow.app/v1
+#   description: Development server
 security:
 - api_key: []
 paths:
