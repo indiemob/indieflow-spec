@@ -704,6 +704,17 @@ components:
         step_name:
           type: string
           description: The step name belonging to the flow
+        dependencies_context:
+          description: If the current step has dependencies, their execution results will be included here
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/StepExecutionResult'
+        triggered_by:
+          description: |
+            If the current step was triggered by another step, it will be mentioned here,
+
+            NOTE: If the step has multiple dependencies and all of them attempt to trigger it, it will take the value
+            of the latest one, meaning when the message gets received, all the dependencies have been met.
       description: Contains information about the context of the step execution
     StepExecutionResult:
       type: object
