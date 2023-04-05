@@ -710,6 +710,7 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/StepExecutionResult'
         triggered_by:
+          $ref: '#/components/schemas/StepExecutionIdAndName'
           description: |
             If the current step was triggered by another step, it will be mentioned here,
 
@@ -881,8 +882,11 @@ components:
       description: Contains information about a flow step that already has been executed
       type: object
       properties:
+        id:
+          description: The step execution id
+          type: string
         step_name:
-          description: The exectued step name
+          description: The executed step name
           type: string
         exit_code:
           $ref: '#/components/schemas/StepExecutionExitCode'
@@ -895,6 +899,16 @@ components:
         created_at:
           description: Date when this step was executed
           type: integer
+    StepExecutionIdAndName:
+      description: Contains step execution id and name of the executed step
+      type: object
+      properties:
+        step_execution_id:
+          description: The step execution id
+          type: string
+        step_name:
+          description: The executed step name
+          type: string
     FlowExecutionsResponse:
       allOf:
       - $ref: '#/components/schemas/SimpleResponse'
