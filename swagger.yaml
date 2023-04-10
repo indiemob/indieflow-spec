@@ -430,6 +430,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FlowExecutionsResponse'
+        "400":
+          description: The form contains validation errors (status will be `validation_error`)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
         "500":
           description: A generic error has occurred (status will be `generic_error`)
           content:
@@ -437,6 +443,33 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
       x-openapi-router-controller: "{{ controller_source }}"
+  /webhook/log:
+    get:
+      summary: Retrieves the detail of the webhook calls to your system
+      operationId: webhook_log_get
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        "200":
+          description: List of webhook request logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookRequestLogResponse'
+        "400":
+          description: The form contains validation errors (status will be `validation_error`)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        "500":
+          description: A generic error has occurred (status will be `generic_error`)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-openapi-router-controller: "{{ controller_source }}"  
 components:
   schemas:
     AnyData:
@@ -819,8 +852,8 @@ components:
     WebhookRequestLog:
       type: object
       properties:
-        context:
-          $ref: '#/components/schemas/StepExecutionContext'
+        step_execution:
+          $ref: '#/components/schemas/StepExecutionRecord'
         request:
           $ref: '#/components/schemas/HttpRequest'
         response:
@@ -896,9 +929,16 @@ components:
           description: The additional data passed as an input to execute this step
         output:
           $ref: '#/components/schemas/AnyData'
+        error:
+          description: In case of an error, the error message will be displayed here
+          type: string
         created_at:
           description: Date when this step was executed
           type: integer
+        flow_name:
+          description: The executed flow name
+        flow_id:
+          description: The id related to the flow execution
     StepExecutionIdAndName:
       description: Contains step execution id and name of the executed step
       type: object
@@ -924,6 +964,21 @@ components:
                   type: array
                   items:
                     $ref: "#/components/schemas/StepExecutionRecord"
+    WebhookRequestLogResponse:
+      allOf:
+      - $ref: '#/components/schemas/SimpleResponse'
+      - type: object
+        description: The record set of webhook calls
+        properties:
+          data:
+            allOf:
+            - $ref: "#/components/schemas/PaginatedData"
+            - type: object
+              properties:
+                records:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/WebhookRequestLog"
   parameters:
     limit:
       name: limit
@@ -936,7 +991,7 @@ components:
         type: integer
         minimum: 1
         maximum: 100
-        default: 50
+        default: 20
     offset:
       name: offset
       in: query
