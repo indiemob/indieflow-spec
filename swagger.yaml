@@ -284,6 +284,10 @@ paths:
   /dead_letter:
     get:
       summary: Retrieves the steps that failed to execute
+      description: |
+        Retrieves the dead letter message records
+
+        WARNING: Records get deleted after 3 natural months to save space
       operationId: dead_letter_get
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -403,6 +407,10 @@ paths:
   /flow/execution/{id}/{flow_id}:
     get:
       summary: Retrieves the steps executed with this flow
+      description: |
+        Retrieves the steps executed with this flow
+
+        WARNING: Records get deleted after 3 natural months to save space
       operationId: flow_execution_id_flow_id_get
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -446,6 +454,10 @@ paths:
   /webhook/log:
     get:
       summary: Retrieves the detail of the webhook calls to your system
+      description: |
+        Retrieves the webhook call log records
+
+        WARNING: Records get deleted after 3 natural months to save space
       operationId: webhook_log_get
       parameters:
       - $ref: '#/components/parameters/limit'
