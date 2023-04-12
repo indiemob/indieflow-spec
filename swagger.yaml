@@ -287,7 +287,7 @@ paths:
       description: |
         Retrieves the dead letter message records
 
-        WARNING: Records get deleted after 3 natural months to save space
+        **WARNING: Records get deleted after 3 natural months to save space**
       operationId: dead_letter_get
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -317,7 +317,7 @@ paths:
       description: |
         Deletes ALL the steps from the dead letter.
 
-        NOTE: WARNING, once deleted, you will NOT be able to get these records back
+        **WARNING: once deleted, you will NOT be able to get these records back**
       operationId: dead_letter_delete
       responses:
         "200":
@@ -410,7 +410,7 @@ paths:
       description: |
         Retrieves the steps executed with this flow
 
-        WARNING: Records get deleted after 3 natural months to save space
+        **WARNING: Records get deleted after 3 natural months to save space**
       operationId: flow_execution_id_flow_id_get
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -457,7 +457,7 @@ paths:
       description: |
         Retrieves the webhook call log records
 
-        WARNING: Records get deleted after 3 natural months to save space
+        **WARNING: Records get deleted after 3 natural months to save space**
       operationId: webhook_log_get
       parameters:
       - $ref: '#/components/parameters/limit'
