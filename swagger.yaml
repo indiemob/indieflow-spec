@@ -73,6 +73,8 @@ paths:
     get:
       summary: Retrieve the flow definition list
       description: Retrieve the flow definition list
+      tags:
+        - FlowDefinition
       operationId: flow_definition_get
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -100,6 +102,8 @@ paths:
     post:
       summary: Create a new flow definition
       description: Create a new flow definition
+      tags:
+        - FlowDefinition
       operationId: flow_definition_post
       requestBody:
         description: Information about the flow to be created
@@ -133,6 +137,8 @@ paths:
     get:
       summary: Retrieve the flow definition detail
       description: Retrieve the flow definition detail
+      tags:
+        - FlowDefinition
       operationId: flow_definition_id_get
       parameters:
       - name: id
@@ -160,6 +166,8 @@ paths:
     delete:
       summary: Delete an existing flow definition
       description: Delete an existing flow definition
+      tags:
+        - FlowDefinition
       operationId: flow_definition_id_delete
       parameters:
       - name: id
@@ -190,6 +198,8 @@ paths:
         Updates an existing flow definition, you can just pass the root attributes you wish to update and it wont affect the existing values.
 
         NOTE: For updating steps you need to send the whole object with the changes you want to make because that will get overwritten.
+      tags:
+        - FlowDefinition
       operationId: flow_definition_id_put
       parameters:
       - name: id
@@ -227,6 +237,8 @@ paths:
       description: |
         Submits a flow execution, this starts the whole flow process by calling the declared steps and
         performs the desired operations as originally designed
+      tags:
+        - FlowExecution
       operationId: flow_submit_post
       requestBody:
         description: Information about the flow to be created
@@ -321,6 +333,8 @@ paths:
         Retrieves the dead letter message records
 
         **WARNING: Records get deleted after 3 natural months to save space**
+      tags:
+        - DeadLetter
       operationId: dead_letter_get
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -373,6 +387,8 @@ paths:
         Re-attempts to run the given step from the dead letter.
 
         NOTE: This will count as a submission request
+      tags:
+        - DeadLetter
       operationId: dead_letter_id_post
       parameters:
       - name: id
@@ -404,9 +420,11 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       x-openapi-router-controller: "{{ controller_source }}"
     delete:
-      summary: Delete the given step from the dead letter
+      summary: Delete the dead letter record
       description: |
-        Delete the given step from the dead letter
+        Delete the given dead letter record
+      tags:
+        - DeadLetter
       operationId: dead_letter_id_delete
       parameters:
       - name: id
@@ -444,6 +462,8 @@ paths:
         Retrieve the steps executed with this flow
 
         **WARNING: Records get deleted after 3 natural months to save space**
+      tags:
+        - FlowExecution
       operationId: flow_execution_id_flow_id_get
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -491,6 +511,8 @@ paths:
         Retrieve the webhook call log records
 
         **WARNING: Records get deleted after 3 natural months to save space**
+      tags:
+        - Logs
       operationId: webhook_log_get
       parameters:
       - $ref: '#/components/parameters/limit'
