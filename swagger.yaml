@@ -345,27 +345,27 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
       x-openapi-router-controller: "{{ controller_source }}"
-    delete:
-      summary: Deletes ALL the steps from the dead letter
-      description: |
-        Deletes ALL the steps from the dead letter.
+    # delete:
+    #   summary: Deletes ALL the steps from the dead letter
+    #   description: |
+    #     Deletes ALL the steps from the dead letter.
 
-        **WARNING: once deleted, you will NOT be able to get these records back**
-      operationId: dead_letter_delete
-      responses:
-        "200":
-          description: Returns a simple response with the deleted step count
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeadLetterAffectedRecordsResponse'
-        "500":
-          description: A generic error has occurred (status will be `generic_error`)
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-      x-openapi-router-controller: "{{ controller_source }}"
+    #     **WARNING: once deleted, you will NOT be able to get these records back**
+    #   operationId: dead_letter_delete
+    #   responses:
+    #     "200":
+    #       description: Returns a simple response with the deleted step count
+    #       content:
+    #         application/json:
+    #           schema:
+    #             $ref: '#/components/schemas/DeadLetterAffectedRecordsResponse'
+    #     "500":
+    #       description: A generic error has occurred (status will be `generic_error`)
+    #       content:
+    #         application/json:
+    #           schema:
+    #             $ref: '#/components/schemas/ErrorResponse'
+    #   x-openapi-router-controller: "{{ controller_source }}"
   /dead_letter/{id}:
     post:
       summary: Flushes (re-attempts) to run the given step from the dead letter
