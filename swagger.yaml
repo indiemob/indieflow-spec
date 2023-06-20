@@ -154,6 +154,32 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
       x-openapi-router-controller: "{{ controller_source }}"
+    delete:
+      summary: Deletes an existing flow definition
+      operationId: flow_definition_id_delete
+      parameters:
+      - name: id
+        in: path
+        description: The flow definition id or name
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Basic success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleResponse'
+        "404":
+          description: The flow definition record was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-openapi-router-controller: "{{ controller_source }}"
     put:
       summary: Updates flow definition
       description: |
@@ -510,8 +536,8 @@ components:
         * generic_error: The request contains a generic error
         * service_down: The backend server is down
         * flow_disabled: The requested flow is currently marked as disabled
-        * service_plan_max_registered_flows_reached: The maximum number of registered flows has been reached
-        * service_plan_max_steps_per_flow_reached: The maximum number of steps per flow has been exceeded
+        * service_plan_max_registered_flows_reached: The maximum number of registered flows has been reached, this error also applies when trying to submit a flow after downgrading a plan
+        * service_plan_max_steps_per_flow_reached: The maximum number of steps per flow has been exceeded, this error also applies when trying to submit a flow after downgrading a plan
       enum:
       - success
       - validation_error
@@ -733,6 +759,9 @@ components:
           description: When was this flow updated
         status:
           $ref: '#/components/schemas/FlowDefinitionStatus'
+        current_version:
+          type: string
+          description: The version associated with this definition, this is only for traceability purposes, we do not support version rollbacks or anything like that
       description: Contains the flow definition
     StepExecutionContext:
       type: object
@@ -950,7 +979,11 @@ components:
         flow_name:
           description: The executed flow name
         flow_id:
+          type: string
           description: The id related to the flow execution
+        flow_definition_version:
+          type: string
+          description: The current version of the flow definition at the time of the execution, this is for traceability purposes
     StepExecutionIdAndName:
       description: Contains step execution id and name of the executed step
       type: object
