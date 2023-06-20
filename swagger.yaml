@@ -1055,7 +1055,5 @@ components:
       name: X-Api-Key
       in: header
       description: |
-        The api key given to you when you register, if you are using this api through an
-        external gateway (i.e. RapidApi) use the api key given to you by them
-        * example: For `RapidApi` use the same value as the header `X-RapidAPI-Key`
+        The api key given to you when you register, no needed when using through <a href="https://rapidapi.com">RapidAPI</a>
       x-apikeyInfoFunc: "{{ check_api_key_fn }}"
