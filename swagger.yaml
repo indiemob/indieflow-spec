@@ -60,7 +60,7 @@ info:
     ```
     * **Server implementation examples <a href="https://github.com/indiemob/indieflow-examples">here</a>**
 
-  version: 0.0.1
+  version: 0.1.0
 servers:
 - url: https://api.indieflow.app/v1
   description: Production server
