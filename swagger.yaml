@@ -71,7 +71,8 @@ security:
 paths:
   /flow/definition:
     get:
-      summary: Retrieves the flow list
+      summary: Retrieve the flow definition list
+      description: Retrieve the flow definition list
       operationId: flow_definition_get
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -97,7 +98,8 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       x-openapi-router-controller: "{{ controller_source }}"
     post:
-      summary: Creates a new flow definition
+      summary: Create a new flow definition
+      description: Create a new flow definition
       operationId: flow_definition_post
       requestBody:
         description: Information about the flow to be created
@@ -129,7 +131,8 @@ paths:
       x-openapi-router-controller: "{{ controller_source }}"
   /flow/definition/{id}:
     get:
-      summary: Retrieves the flow definition detail
+      summary: Retrieve the flow definition detail
+      description: Retrieve the flow definition detail
       operationId: flow_definition_id_get
       parameters:
       - name: id
@@ -155,7 +158,8 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       x-openapi-router-controller: "{{ controller_source }}"
     delete:
-      summary: Deletes an existing flow definition
+      summary: Delete an existing flow definition
+      description: Delete an existing flow definition
       operationId: flow_definition_id_delete
       parameters:
       - name: id
@@ -181,7 +185,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       x-openapi-router-controller: "{{ controller_source }}"
     put:
-      summary: Updates flow definition
+      summary: Update flow definition
       description: |
         Updates an existing flow definition, you can just pass the root attributes you wish to update and it wont affect the existing values.
 
@@ -220,6 +224,9 @@ paths:
   /flow/submit:
     post:
       summary: Submits a flow execution
+      description: |
+        Submits a flow execution, this starts the whole flow process by calling the declared steps and
+        performs the desired operations as originally designed
       operationId: flow_submit_post
       requestBody:
         description: Information about the flow to be created
@@ -309,7 +316,7 @@ paths:
               
   /dead_letter:
     get:
-      summary: Retrieves the steps that failed to execute
+      summary: Retrieve the steps that failed to execute
       description: |
         Retrieves the dead letter message records
 
@@ -397,9 +404,9 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       x-openapi-router-controller: "{{ controller_source }}"
     delete:
-      summary: Deletes the given step from the dead letter
+      summary: Delete the given step from the dead letter
       description: |
-        Flushes (deletes) the given step from the dead letter
+        Delete the given step from the dead letter
       operationId: dead_letter_id_delete
       parameters:
       - name: id
@@ -432,9 +439,9 @@ paths:
       x-openapi-router-controller: "{{ controller_source }}"
   /flow/execution/{id}/{flow_id}:
     get:
-      summary: Retrieves the steps executed with this flow
+      summary: Retrieve the steps executed with this flow
       description: |
-        Retrieves the steps executed with this flow
+        Retrieve the steps executed with this flow
 
         **WARNING: Records get deleted after 3 natural months to save space**
       operationId: flow_execution_id_flow_id_get
@@ -479,9 +486,9 @@ paths:
       x-openapi-router-controller: "{{ controller_source }}"
   /webhook/log:
     get:
-      summary: Retrieves the detail of the webhook calls to your system
+      summary: Retrieve the detail of the webhook calls to your system
       description: |
-        Retrieves the webhook call log records
+        Retrieve the webhook call log records
 
         **WARNING: Records get deleted after 3 natural months to save space**
       operationId: webhook_log_get
